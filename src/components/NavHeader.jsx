@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 // import Drawer from './Drawer';
-
+// import logo from '../img/ama_white.svg';
 // drawer
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -115,7 +115,7 @@ export default function NavHeader() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'right',
       }}
       id={menuId}
@@ -205,8 +205,9 @@ export default function NavHeader() {
               component="div"
               sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              MUI
+              AMA
             </Typography>
+
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
