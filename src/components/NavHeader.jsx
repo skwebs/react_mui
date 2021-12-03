@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+
+// app bar components
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,23 +11,50 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-// import Drawer from './Drawer';
-// import logo from '../img/ama_white.svg';
-// drawer
+// swipable drawer components
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+// appbar icons
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import StarIcon from '@mui/icons-material/Star';
+import DraftsIcon from '@mui/icons-material/Drafts';
+// swipable drawer icons
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import PersonIcon from '@mui/icons-material/Person'
+
+// // imports all components
+// import {
+//   AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu,
+//   SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, Divider
+// } from '@mui/material';
+
+// all icons imported from material-ui
+// import {
+//   Search as SearchIcon,
+//   Menu as MenuIcon,
+//   AccountCircle,
+//   Mail as MailIcon,
+//   Notifications as NotificationsIcon,
+//   More as MoreIcon,
+//   Star as StarIcon,
+//   Drafts as DraftsIcon,
+//   Inbox as InboxIcon,
+//   Person as PersonIcon,
+// } from '@mui/icons-material';
+
+// import Drawer from './Drawer';
+// import logo from '../img/ama_white.svg';
+// drawer
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -104,11 +133,8 @@ export default function NavHeader() {
     ) {
       return;
     }
-
     setSidebarOpen(status);
   };
-
-
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -182,6 +208,74 @@ export default function NavHeader() {
         <p>Profile</p>
       </MenuItem>
     </Menu>
+  );
+
+  const renderSwipeableDrawer = (
+    <SwipeableDrawer
+      variant="temporary"
+      ModalProps={{
+        keepMounted: true,
+      }}
+      open={sidbarOpen}
+      onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
+    >
+      <List>
+        <ListItem button key="Inbox">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Inbox" />
+        </ListItem>
+        <ListItem button key="Starred">
+          <ListItemIcon>
+            <StarIcon />
+          </ListItemIcon>
+          <ListItemText primary="Starred" />
+        </ListItem>
+        <ListItem button key="Send email" onClick={toggleDrawer(false)}>
+          <ListItemIcon>
+            <MailIcon />
+          </ListItemIcon>
+          <ListItemText primary="Send email" />
+        </ListItem>
+        <ListItem button key="Drafts" onClick={toggleDrawer(false)}>
+          <ListItemIcon>
+            <DraftsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Drafts" />
+        </ListItem>
+      </List>
+
+      <Box
+        sx={{ width: 250 }}
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+      >
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <PersonIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </SwipeableDrawer>
   );
 
   return (
@@ -264,47 +358,8 @@ export default function NavHeader() {
       </Box>
       {/* <Drawer sidbarOpen={sidbarOpen} /> */}
 
-
-
       {/* drawer */}
-      <SwipeableDrawer
-        variant="temporary"
-        ModalProps={{
-          keepMounted: true,
-        }}
-        open={sidbarOpen}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-      >
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <PersonIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </SwipeableDrawer>
+      {renderSwipeableDrawer}
     </>
   );
 }
